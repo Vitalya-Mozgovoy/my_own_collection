@@ -26,84 +26,9 @@
 
 **Answers**  
 
-vector-role Jenkinsfile
+[vector-role Jenkinsfile](https://github.com/Vitalya-Mozgovoy/my_own_collection/blob/main/jenkins/assets/answers/Jenkinsfile)
 
-----------------------------
-
-pipeline {
- agent { label 'molecule' }
- environment {
-        ROLE = "vector-role"
-    }
- parameters {
- choice(name: 'TEST', choices: ['only default', 'all'], description: 'Test cases')
-    }
- stages {
- stage('Git checkout') {
- steps {
- echo "Testing role  ${env.ROLE}"
- checkout([
- $class: 'GitSCM', 
-                    branches: [[name: "*/${env.ROLE}"]], 
-                    extensions: [], 
-                    userRemoteConfigs: [[url: 'https://github.com/Vitalya-Mozgovoy/my_own_collection.git ']]
-                ])
-            }
-        }
- stage("Run molecule") {
-            steps {
- script {
-                    if ('only default' != params.TEST) {
- sh "molecule test --all"
-                    }
-                    else {
- sh 'molecule test'
-                    }
-                }
-            }
-        }
-    }
-}
-
---------------------------------------------
-
-lighthouse-role Jenkinsfile
-
-
-pipeline {
- agent { label 'molecule' }
- environment {
-        ROLE = "lighthouse-role"
-    }
- parameters {
- choice(name: 'TEST', choices: ['only default', 'all'], description: 'Test cases')
-    }
- stages {
- stage('Git checkout') {
- steps {
- echo "Testing role  $ {env.ROLE}"
- checkout([
- $class: 'GitSCM', 
-                    branches: [[name: "*/${env.ROLE}"]], 
-                    extensions: [], 
-                    userRemoteConfigs: [[url: 'https://github.com/Kraktorist/devops-netology.git ']]
-                ])
-            }
-        }
- stage("Run molecule") {
- steps {
- script {
-                    if ('only default' != params.TEST) {
- sh 'molecule test --all'
-                    }
-                    else {
- sh 'molecule test'
-                    }
-                }
-            }
-        }
-    }
-}
+[lighthouse-role Jenkinsfile](https://github.com/Vitalya-Mozgovoy/my_own_collection/blob/main/jenkins/assets/answers/ScriptedJenkinsfile)
 
 
 
